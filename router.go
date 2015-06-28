@@ -1,10 +1,20 @@
 package main
 
-import "github.com/gorilla/mux"
+import (
+	"github.com/bernos/restapi/router"
+	"github.com/bernos/restapi/todos"
+	"github.com/gorilla/mux"
+)
 
 func NewRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 
+	registerSubroutes(router.PathPrefix("/todos").Subrouter(), todos.Routes)
+
+	return router
+}
+
+func registerSubroutes(router *mux.Router, routes router.Routes) {
 	for _, route := range routes {
 		router.
 			Methods(route.Method).
@@ -12,6 +22,4 @@ func NewRouter() *mux.Router {
 			Name(route.Name).
 			Handler(Logger(route.HandlerFunc, route.Name))
 	}
-
-	return router
 }

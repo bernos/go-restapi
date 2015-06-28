@@ -1,4 +1,4 @@
-package main
+package todos
 
 import (
 	"encoding/json"
@@ -46,8 +46,6 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func sendJSON(w http.ResponseWriter, o interface{}, status int, onError func(error)) {
-	onError(fmt.Errorf("Badd one"))
-	return
 	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
 	w.WriteHeader(status)
 	if err := json.NewEncoder(w).Encode(o); err != nil {
