@@ -15,7 +15,10 @@ type application struct {
 }
 
 func NewApplication() Application {
-	return new(application)
+	app := new(application)
+	app.middleware = make([]Middleware, 0)
+
+	return app
 }
 
 func (app *application) ListenAndServe(addr string, handler http.Handler) error {
@@ -27,10 +30,6 @@ func (app *application) ListenAndServeTLS(addr string, certFile string, keyFile 
 }
 
 func (app *application) Use(middleware Middleware) Application {
-	if app.middleware == nil {
-		app.middleware = make([]Middleware, 0)
-	}
-
 	app.middleware = append(app.middleware, middleware)
 
 	return app
