@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/bernos/restapi/router"
-	"github.com/bernos/restapi/todos"
+	"github.com/bernos/go-restapi/router"
+	"github.com/bernos/go-restapi/todos"
 	"github.com/gorilla/mux"
 )
 

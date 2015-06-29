@@ -1,6 +1,6 @@
 package todos
 
-import "github.com/bernos/restapi/router"
+import "github.com/bernos/go-restapi/router"
 
 var Routes = router.Routes{
 	router.Route{

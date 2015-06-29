@@ -2,18 +2,14 @@ package main
 
 import (
 	"log"
-	"net/http"
 
-	"github.com/bernos/restapi/application"
+	"github.com/bernos/go-restapi/application"
 )
 
 func main() {
-	router := NewRouter()
+
 	app := application.NewApplication()
+	app.Use(Logger)
 
-	app.
-		UseMiddleware(Logger).
-		UseRouter(router)
-
-	log.Fatal(http.ListenAndServe(":8080", app))
+	log.Fatal(app.ListenAndServe(":8080", NewRouter()))
 }
