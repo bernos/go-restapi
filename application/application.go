@@ -5,6 +5,7 @@ import "net/http"
 type Application interface {
 	Use(Middleware) Application
 	ListenAndServe(string, http.Handler) error
+	ListenAndServeTLS(string, string, string, http.Handler) error
 }
 
 type Middleware func(http.Handler) http.Handler
@@ -19,6 +20,10 @@ func NewApplication() Application {
 
 func (app *application) ListenAndServe(addr string, handler http.Handler) error {
 	return http.ListenAndServe(addr, reduce(app.middleware, handler))
+}
+
+func (app *application) ListenAndServeTLS(addr string, certFile string, keyFile string, handler http.Handler) error {
+	return http.ListenAndServeTLS(addr, certFile, keyFile, handler)
 }
 
 func (app *application) Use(middleware Middleware) Application {
