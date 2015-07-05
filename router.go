@@ -20,6 +20,6 @@ func registerSubroutes(router *mux.Router, routes router.Routes) {
 			Methods(route.Method).
 			Path(route.Pattern).
 			Name(route.Name).
-			Handler(route.HandlerFunc)
+			Handler(route.Handler)
 	}
 }

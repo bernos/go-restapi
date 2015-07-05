@@ -1,24 +1,28 @@
 package todos
 
-import "github.com/bernos/go-restapi/router"
+import (
+	"github.com/bernos/go-restapi/router"
+)
+
+var todoController = &TodoController{}
 
 var Routes = router.Routes{
 	router.Route{
 		"TodoIndex",
 		"GET",
 		"/",
-		TodoIndex,
+		todoController.Action(TodoIndex),
 	},
 	router.Route{
 		"TodoShow",
 		"GET",
 		"/{todoId}",
-		TodoShow,
+		todoController.Action(TodoShow),
 	},
 	router.Route{
 		"TodoCreate",
 		"POST",
 		"/",
-		TodoCreate,
+		todoController.Action(TodoCreate),
 	},
 }

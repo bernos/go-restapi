@@ -3,27 +3,35 @@ package todos
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/bernos/go-restapi/application"
 	"github.com/gorilla/mux"
 	"io"
 	"io/ioutil"
 	"net/http"
 )
 
-func Index(w http.ResponseWriter, r *http.Request) {
+type TodoController struct {
+	application.Controller
+}
+
+func Index(w http.ResponseWriter, r *http.Request) error {
 	fmt.Fprintln(w, "Welcome!")
+	return nil
 }
 
-func TodoIndex(w http.ResponseWriter, r *http.Request) {
+func TodoIndex(w http.ResponseWriter, r *http.Request) error {
 	sendJSON(w, todos, http.StatusOK, handleError(w))
+	return nil
 }
 
-func TodoShow(w http.ResponseWriter, r *http.Request) {
+func TodoShow(w http.ResponseWriter, r *http.Request) error {
 	vars := mux.Vars(r)
 	todoId := vars["todoId"]
 	fmt.Fprintln(w, "Todo show:", todoId)
+	return nil
 }
 
-func TodoCreate(w http.ResponseWriter, r *http.Request) {
+func TodoCreate(w http.ResponseWriter, r *http.Request) error {
 	var todo Todo
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
 
@@ -43,6 +51,7 @@ func TodoCreate(w http.ResponseWriter, r *http.Request) {
 		sendJSON(w, t, http.StatusCreated, handleError(w))
 		w.WriteHeader(http.StatusCreated)
 	}
+	return nil
 }
 
 func sendJSON(w http.ResponseWriter, o interface{}, status int, onError func(error)) {
