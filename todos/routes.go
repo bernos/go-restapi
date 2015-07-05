@@ -4,25 +4,25 @@ import (
 	"github.com/bernos/go-restapi/router"
 )
 
-var todoController = &TodoController{}
+var c = &TodoController{}
 
 var Routes = router.Routes{
 	router.Route{
 		"TodoIndex",
 		"GET",
 		"/",
-		todoController.Action(TodoIndex),
+		c.Action(c.TodoIndex),
 	},
 	router.Route{
 		"TodoShow",
 		"GET",
 		"/{todoId}",
-		todoController.Action(TodoShow),
+		c.Action(c.TodoShow),
 	},
 	router.Route{
 		"TodoCreate",
 		"POST",
 		"/",
-		todoController.Action(TodoCreate),
+		c.Action(c.TodoCreate),
 	},
 }

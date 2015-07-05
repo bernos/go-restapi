@@ -14,58 +14,47 @@ type TodoController struct {
 	application.Controller
 }
 
-func Index(w http.ResponseWriter, r *http.Request) error {
+func (c *TodoController) Index(w http.ResponseWriter, r *http.Request) error {
 	fmt.Fprintln(w, "Welcome!")
 	return nil
 }
 
-func TodoIndex(w http.ResponseWriter, r *http.Request) error {
-	sendJSON(w, todos, http.StatusOK, handleError(w))
-	return nil
+func (c *TodoController) TodoIndex(w http.ResponseWriter, r *http.Request) error {
+	return sendJSON(w, todos, http.StatusOK)
 }
 
-func TodoShow(w http.ResponseWriter, r *http.Request) error {
+func (c *TodoController) TodoShow(w http.ResponseWriter, r *http.Request) error {
 	vars := mux.Vars(r)
 	todoId := vars["todoId"]
 	fmt.Fprintln(w, "Todo show:", todoId)
 	return nil
 }
 
-func TodoCreate(w http.ResponseWriter, r *http.Request) error {
+func (c *TodoController) TodoCreate(w http.ResponseWriter, r *http.Request) error {
 	var todo Todo
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
 
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	if err := r.Body.Close(); err != nil {
-		panic(err)
+		return err
 	}
 
 	if err := json.Unmarshal(body, &todo); err != nil {
-		sendJSON(w, err, 422, handleError(w))
-	} else {
-
-		t := RepoCreateTodo(todo)
-		sendJSON(w, t, http.StatusCreated, handleError(w))
-		w.WriteHeader(http.StatusCreated)
+		return sendJSON(w, err, 422)
 	}
-	return nil
+
+	t := RepoCreateTodo(todo)
+	return sendJSON(w, t, http.StatusCreated)
 }
 
-func sendJSON(w http.ResponseWriter, o interface{}, status int, onError func(error)) {
+func sendJSON(w http.ResponseWriter, o interface{}, status int) error {
 	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
 	w.WriteHeader(status)
 	if err := json.NewEncoder(w).Encode(o); err != nil {
-		onError(err)
+		return err
 	}
-}
-
-func handleError(w http.ResponseWriter) func(error) {
-	return func(err error) {
-		w.WriteHeader(http.StatusInternalServerError)
-
-		json.NewEncoder(w).Encode(err)
-	}
+	return nil
 }
