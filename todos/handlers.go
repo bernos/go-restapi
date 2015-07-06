@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/bernos/go-restapi/application"
 	"github.com/gorilla/mux"
+	"github.com/unrolled/render"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -12,6 +13,7 @@ import (
 
 type TodoController struct {
 	application.Controller
+	render *render.Render
 }
 
 func (c *TodoController) Index(w http.ResponseWriter, r *http.Request) error {
@@ -20,7 +22,10 @@ func (c *TodoController) Index(w http.ResponseWriter, r *http.Request) error {
 }
 
 func (c *TodoController) TodoIndex(w http.ResponseWriter, r *http.Request) error {
-	return sendJSON(w, todos, http.StatusOK)
+	c.render.JSON(w, http.StatusOK, todos)
+	return nil
+
+	//return sendJSON(w, todos, http.StatusOK)
 }
 
 func (c *TodoController) TodoShow(w http.ResponseWriter, r *http.Request) error {
