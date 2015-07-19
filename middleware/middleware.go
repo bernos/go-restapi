@@ -26,6 +26,14 @@ func (stack *MiddlewareStack) UseHandler(h http.Handler) *MiddlewareStack {
 	return stack
 }
 
+func MiddlewareFunc(m func(http.ResponseWriter, *http.Request, http.Handler)) Middleware {
+	return func(h http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			m(w, r, h)
+		})
+	}
+}
+
 func (stack *MiddlewareStack) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	handler := stack.handler
 

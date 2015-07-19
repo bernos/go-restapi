@@ -29,7 +29,7 @@ func configureLogging(c *config.Configuration, stack *middleware.MiddlewareStack
 	log.SetFormatter(&log.JSONFormatter{})
 	log.Info("Set log formatting")
 
-	stack.Use(Logger)
+	stack.Use(middleware.MiddlewareFunc(LoggerMiddleware))
 }
 
 func configureRender(c *config.Configuration, stack *middleware.MiddlewareStack) {
