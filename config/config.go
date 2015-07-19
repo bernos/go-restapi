@@ -2,19 +2,27 @@ package config
 
 import (
 	"fmt"
+	"os"
+
+	"github.com/gorilla/mux"
 	"github.com/jacobstr/confer"
 	"github.com/unrolled/render"
-	"log"
-	"os"
+
+	log "github.com/Sirupsen/logrus"
 )
 
-type ApiConfiguration struct {
+type Configuration struct {
 	*confer.Config
 	Render *render.Render
+	Router *mux.Router
 }
 
-func NewApiConfiguration() *ApiConfiguration {
-	config := &ApiConfiguration{Config: confer.NewConfig()}
+func NewConfiguration() *Configuration {
+	return &Configuration{Config: loadConfig()}
+}
+
+func loadConfig() *confer.Config {
+	config := confer.NewConfig()
 	appenv := os.Getenv("GO_APPENV")
 	paths := []string{"application.yml"}
 
@@ -23,7 +31,7 @@ func NewApiConfiguration() *ApiConfiguration {
 	}
 
 	if err := config.ReadPaths(paths...); err != nil {
-		log.Print(err)
+		log.Warn(err)
 	}
 
 	return config

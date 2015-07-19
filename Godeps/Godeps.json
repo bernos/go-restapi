@@ -6,12 +6,51 @@
 	],
 	"Deps": [
 		{
+			"ImportPath": "github.com/BurntSushi/toml",
+			"Comment": "v0.1.0-21-g056c9bc",
+			"Rev": "056c9bc7be7190eaa7715723883caffa5f8fa3e4"
+		},
+		{
 			"ImportPath": "github.com/gorilla/context",
 			"Rev": "215affda49addc4c8ef7e2534915df2c8c35c6cd"
 		},
 		{
 			"ImportPath": "github.com/gorilla/mux",
 			"Rev": "47e8f450ef38c857cdd922ec08862ca9d65a1c6d"
+		},
+		{
+			"ImportPath": "github.com/jacobstr/confer",
+			"Comment": "0.1.0-1-g465e87b",
+			"Rev": "465e87b0fca4932c2bd6bcb78a0b3daf1d1db2e3"
+		},
+		{
+			"ImportPath": "github.com/kr/pretty",
+			"Comment": "go.weekly.2011-12-22-27-ge6ac2fc",
+			"Rev": "e6ac2fc51e89a3249e82157fa0bb7a18ef9dd5bb"
+		},
+		{
+			"ImportPath": "github.com/kr/text",
+			"Rev": "e373e137fafd8abd480af49182dea0513914adb4"
+		},
+		{
+			"ImportPath": "github.com/spf13/cast",
+			"Rev": "4d07383ffe94b5e5a6fa3af9211374a4507a0184"
+		},
+		{
+			"ImportPath": "github.com/spf13/jwalterweatherman",
+			"Rev": "3d60171a64319ef63c78bd45bd60e6eab1e75f8b"
+		},
+		{
+			"ImportPath": "github.com/spf13/pflag",
+			"Rev": "67cbc198fd11dab704b214c1e629a97af392c085"
+		},
+		{
+			"ImportPath": "github.com/unrolled/render",
+			"Rev": "d4edd394101358a4f8e462c43f884d9af99a4d30"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v1",
+			"Rev": "9f9df34309c04878acc86042b16630b0f696e1de"
 		}
 	]
 }
