@@ -24,11 +24,11 @@ clean:
 	go clean -i -x ./...
 	-rm -rf $(OUTPUT_DIR)
 
-deps :
+deps:
 	go get -v github.com/tools/godep && \
-	$(GOPATH)/bin/godep restore ./... && \
+	$(GOPATH)/bin/godep restore ./... 
 
-test:
+test: deps
 	$(GOPATH)/bin/godep go test -v ./...
 
 compile: test
